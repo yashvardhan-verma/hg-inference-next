@@ -18,17 +18,17 @@ const Home: NextPage = () => {
 					</h1>
 
 					<div className="space-x-10 flex justify-center items-center">
-						<div>
+						{/* <div>
 							<h2 className="mb-3 text-xl font-bold text-gray-900">
 								Video File Upload
 							</h2>
 							<SingleFileUploadForm />	
-						</div>
+						</div> */}
 						<div>
 							<h2 className="mb-3 text-xl font-bold text-gray-900">
-								Audio File Upload
+								Multi File Upload
 							</h2>
-							<SingleFileUploadForm />
+							<MultipleFileUploadForm />
 						</div>
 						{/* <div>
               <h2 className="mb-3 text-xl font-bold text-gray-900">

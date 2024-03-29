@@ -9,7 +9,7 @@ export const FormidableError = formidable.errors.FormidableError;
 
 export const parseForm = async (
   req: NextApiRequest
-): Promise<{ fields: formidable.Fields; files: formidable.Files }> => {
+): Promise<{ fields: formidable.Fields; files: formidable.Files[] }> => {
   return await new Promise(async (resolve, reject) => {
     const uploadDir = join(
       process.env.ROOT_DIR || process.cwd(),
@@ -40,15 +40,18 @@ export const parseForm = async (
         return filename;
       },
       filter: (part) => {
-        return (
-          part.name === "media"
-        );
+        return part.name === "media";
       },
     });
 
-    form.parse(req, function (err, fields, files) {
+    const allFiles: formidable.Files[] = [];
+		form.on('file', function(name, file) {
+			allFiles.push({ [name]: file });
+		});
+
+    form.parse(req, function (err, fields) {
       if (err) reject(err);
-      else resolve({ fields, files });
+      else resolve({ fields, files: allFiles });
     });
   });
 };
